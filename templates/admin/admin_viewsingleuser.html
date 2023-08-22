@@ -1,0 +1,46 @@
+{% extends 'admin/admin_dashboard.html' %}
+{% for message in messages %}
+<script>alert('{{message}}')</script>
+{% endfor %}
+{% block admin %}
+<div class="container-fluid page-header py-5 mb-1 wow fadeIn" data-wow-delay="0.1s" style="height: 400px!important;">
+    <div class="container text-center py-5">
+        <h1 class="display-4 text-white animated slideInDown mb-4" >Admin</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="/admin-dashboard" >Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page" >View User Profile</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-6 wow fadeIn mx-auto" data-wow-delay="0.1s">
+                <h1 class="display-6 mb-5 " style="text-align: center;">View User Profile</h1>
+                
+            </div>
+            
+        </div>
+        <div class="row mx-auto">
+            <div class="col-sm-12" style="display: flex; flex-direction: column; justify-content: space-between;">
+              <div class="card" style="border: none; height: 400px !important;">
+                <div class="card-body mx-auto" >
+                  <h5 class="card-title">{{udata.first_name}} {{udata.last_name}}</h5>
+                  <p class="card-text">Phone: {{udata.user_phone}}</p>
+                  <p class="card-text">Email: {{udata.user_email}}</p>
+                  <p class="card-text">District: {{udata.district}}</p>
+                 
+                  <div class="col-12">
+                    <!-- <a href="/user-updateprofile?uid={{udata.id}}" class="btn btn-primary py-2 px-4" style="border-radius: 10px;">Update</a> -->
+                    <!-- <a href="/user-deleteprofile?uid={{udata.id}}" class="btn btn-primary py-2 px-4" style="border-radius: 10px;">Delete</a> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+</div>
+{% endblock admin %}

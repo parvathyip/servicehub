@@ -1,0 +1,65 @@
+{% extends 'user/user_dashboard.html' %}
+{% for message in messages %}
+<script>alert('{{message}}')</script>
+{% endfor %}
+{% block user %}
+<div class="container-fluid page-header py-5 mb-1 wow fadeIn" data-wow-delay="0.1s" style="height: 400px!important;">
+    <div class="container text-center py-5">
+        <h1 class="display-4 text-white animated slideInDown mb-4" >ServiceHub</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="/user-dashboard" >Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page" >Update Product Submission Date</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-6 wow fadeIn mx-auto" data-wow-delay="0.1s">
+                <h1 class="display-6 mb-5 ">Update Product Submission Date</h1>
+                <form method="post" >
+                    {% csrf_token %}
+                    <div class="row g-3">
+                        
+                        <div class="col-md-12">
+                            <div class="form-floating">
+                                <input type="date" id="date" name="submitdate" class="form-control"  placeholder="Update Product submission date">
+                                <label for="name">Update Product submission date</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button class="btn btn-primary py-3 px-5" type="submit" style="border-radius: 10px;">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var eventDateInput = document.getElementById('date'); // Corrected ID
+        var today = new Date().toISOString().split('T')[0];
+        eventDateInput.setAttribute('min', today);
+
+        var form = document.querySelector('.contact-form');
+        form.addEventListener('submit', function(event) {
+            var selectedDate = new Date(eventDateInput.value);
+            var currentDate = new Date();
+
+            // Set current date to start of day
+            currentDate.setHours(0, 0, 0, 0);
+
+            if (selectedDate < currentDate) {
+                alert("Date must be greater than today's date.");
+                event.preventDefault(); // Prevent form submission
+            }
+        });
+    });
+</script>
+{% endblock user %}

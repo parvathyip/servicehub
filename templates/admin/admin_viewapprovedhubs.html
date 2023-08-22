@@ -1,0 +1,74 @@
+{% extends 'admin/admin_dashboard.html' %}
+{% for message in messages %}
+<script>alert('{{message}}')</script>
+{% endfor %}
+{% block admin %}
+<div class="container-fluid page-header py-5 mb-1 wow fadeIn" data-wow-delay="0.1s" style="height: 400px!important;">
+    <div class="container text-center py-5">
+        <h1 class="display-4 text-white animated slideInDown mb-4" >Admin</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="/admin-dashboard" >Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page" >View Approved Hubs</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+        <div class="container">
+        <div class="text-center mx-auto" style="max-width: 500px;">
+            <h1 class="display-6 mb-5">View Approved Hubs</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-uppercase mb-0"></h5>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table no-wrap user-table mb-0">
+                          <thead>
+                            <tr>
+                              <th scope="col" class="border-0 text-uppercase font-medium">Name</th>
+                              <!-- <th scope="col" class="border-0 text-uppercase font-medium">Brand</th> -->
+                              <th scope="col" class="border-0 text-uppercase font-medium">View more</th>
+                              <th scope="col" class="border-0 text-uppercase font-medium">Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for hub in hubs %}
+                            <tr>
+                            <td>
+                                <span class="text-muted">{{hub.hub_name}}</span><br>
+                            </td>
+                            <!-- <td>
+                                <span class="text-muted">{{hub.brand.brandname}}</span><br>
+                            </td> -->
+                              <td>
+                                <span class="text-muted">
+                                    <a href="/admin-viewsinglehub?hid={{hub.id}}" class="btn btn-primary py-2 px-4" style="border-radius: 10px;">View more</a>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="text-muted">
+                                    <a href="/admin-rejecteachhub?hid={{hub.id}}" class="btn btn-primary py-2 px-4" style="border-radius: 10px;">Reject</a>
+                                </span>
+                            </td>
+                            </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        
+    </div>
+</div>
+{% endblock admin %}

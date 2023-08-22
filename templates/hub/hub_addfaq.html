@@ -1,0 +1,50 @@
+{% extends 'hub/hub_dashboard.html' %}
+{% for message in messages %}
+<script>alert('{{message}}')</script>
+{% endfor %}
+{% block hub %}
+<div class="container-fluid page-header py-5 mb-1 wow fadeIn" data-wow-delay="0.1s" style="height: 400px!important;">
+    <div class="container text-center py-5">
+        <h1 class="display-4 text-white animated slideInDown mb-4" >ServiceHub</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="/hub-dashboard" >Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page" >Add FAQ</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-6 wow fadeIn mx-auto" data-wow-delay="0.1s">
+                <h1 class="display-6 mb-5 ">Add FAQ</h1>
+                <form method="post" >
+                    {% csrf_token %}
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <textarea class="form-control" name="fque" placeholder="Faq Question" id="" style="height: 100px"></textarea>
+                                <label for="message">FAQ Question</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <textarea class="form-control" name="fans" placeholder="Faq Answer" id="" style="height: 100px"></textarea>
+                                <label for="message">FAQ Answer</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button class="btn btn-primary py-3 px-5" type="submit" style="border-radius: 10px;">Add</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+{% endblock hub %}

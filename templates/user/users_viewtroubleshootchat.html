@@ -1,0 +1,90 @@
+{% extends 'user/user_dashboard.html' %}
+{% for message in messages %}
+<script>alert('{{message}}')</script>
+{% endfor %}
+{% block user %}
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<div class="container-fluid page-header py-5 mb-1 wow fadeIn" data-wow-delay="0.1s" style="height: 400px!important;">
+    <div class="container text-center py-5">
+        <h1 class="display-4 text-white animated slideInDown mb-4" >User</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="/user-dashboard" >Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page" >View TroubleShoot</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+        <div class="container">
+        <div class="text-center mx-auto" style="max-width: 500px;">
+            <h1 class="display-6 mb-5">View TroubleShoot</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-uppercase mb-0"></h5>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table no-wrap user-table mb-0">
+                          <thead>
+                            <tr>
+                              <th scope="col" class="border-0 text-uppercase font-medium">Product</th>
+                              <th scope="col" class="border-0 text-uppercase font-medium">Description</th>
+                              <th scope="col" class="border-0 text-uppercase font-medium">ServiceHub</th>
+                              <!-- <th scope="col" class="border-0 text-uppercase font-medium">Status</th> -->
+                              <th scope="col" class="border-0 text-uppercase font-medium">Chat</th>
+                              <th scope="col" class="border-0 text-uppercase font-medium" >Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for complaint in complaints %}
+                            <tr>
+                              <td>
+                                  <h5 class="font-medium mb-0">{{complaint.serviceproduct.productname}}</h5>
+                                  <span class="text-muted">Brand: <b><i>{{complaint.serviceproduct.hubbrands.brand.brandname}}</i></b></span><br>
+                                  <span class="text-muted">Model: <i>{{complaint.model}}</i></span>
+                              </td>
+                              <td>
+                                  <span class="text-muted">{{complaint.complaint_text}}</span><br>
+                              </td>
+                              <td>
+                                  <span class="text-muted"><a href="/user-viewsinglehub?hubid={{complaint.hub.id}}">{{complaint.hub.hub_name}}</a></span><br>
+                                  <span class="text-muted">{{complaint.hub.hub_phone}}</span>
+                              </td>
+                              <!-- <td>
+                                  <span class="text-muted">{{complaint.complaint_status}}</span><br>
+                              </td> -->
+                              <td>
+                                <span class="text-muted"><a href="/user-chat?cid={{complaint.id}}" class="btn btn-primary py-2 px-4" style="border-radius: 10px;">Chat</a></span><br>
+                            </td>
+                              <td>
+                                <a href="/user-deletecomplaint?cid={{complaint.id}}" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-trash"></i> </a>
+                              </td>
+                              {% if complaint.complaint_status == 'Pending' %}
+                              <td>                                
+                                <span class="text-muted"><a href="/user-viewcomplaints?cid={{complaint.id}}" class="btn btn-primary py-2 px-4" style="border-radius: 10px;">Add Complaint</a></span><br>
+                              </td>
+                              {% endif %}
+                            </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        
+    </div>
+</div>
+
+{% endblock user %}

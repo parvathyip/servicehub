@@ -1,0 +1,109 @@
+{% extends 'hub/hub_dashboard.html' %}
+{% for message in messages %}
+<script>alert('{{message}}')</script>
+{% endfor %}
+{% block hub %}
+<div class="container-fluid page-header py-5 mb-1 wow fadeIn" data-wow-delay="0.1s" style="height: 400px!important;">
+    <div class="container text-center py-5">
+        <h1 class="display-4 text-white animated slideInDown mb-4" >ServiceHub</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="/hub-dashboard" >Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page" >Add Complaint Requirements</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-6 wow fadeIn mx-auto" data-wow-delay="0.1s">
+                <h1 class="display-6 mb-5 ">Complaint Requirements</h1>
+                <!-- <h1 class="display-6 mb-5 ">Add Complaint Requirements</h1>
+                <form method="post" >
+                    {% csrf_token %}
+                    <div class="row g-3">
+                        <div class="col-md-12">
+                            <div class="form-floating">
+                                <input type="text" name="productname" class="form-control" pattern="[a-zA-Z ]+"  placeholder="Productname">
+                                <label for="name">Productname</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button class="btn btn-primary py-3 px-5" type="submit" style="border-radius: 10px;">Add</button>
+                        </div>
+                    </div>
+                </form> -->
+                <form method="post" action="">
+                    {% csrf_token %}
+                    
+                    <div>
+                    
+                    <div  class="form-group">
+                        <div class="form-floating">
+                            <textarea name="desc" id="desc-1"  class="form-control" placeholder="Enter Description" id="" style="height: 100px"></textarea>
+                            <label for="message">Enter Description</label>
+                        </div>
+                    </div><br>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Price</label>
+                      <input type="text" class="form-control" name="price" id="price-1" placeholder="Enter price">
+                    </div>
+                    <br>
+                    <div class="col-12" id="dynamic-fields-container">
+                        <button class="btn btn-primary py-3 px-5" type="button" style="border-radius: 10px;" onclick="addFields()">+</button>
+                    </div><br>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-floating">
+                            <input type="text" name="servicecharge" class="form-control" pattern="[0-9]+"  placeholder="Add ServiceCharge">
+                            <label for="name">Add ServiceCharge</label>
+                        </div>
+                    </div><br>
+                    <div class="col-12">
+                        <button class="btn btn-primary py-3 px-5" type="submit" style="border-radius: 10px;">Add</button>
+                    </div>
+                  </form>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<script>
+    let counter = 1;
+  
+    function addFields() {
+      const lastdescription = document.getElementById(`desc-${counter}`);
+      const lastprice = document.getElementById(`price-${counter}`);
+
+      // Check if the last fields are not empty
+      if (lastdescription.value.trim() === '' || lastprice.value.trim() === '' ) {
+        alert('Please fill out the existing description,price fields before adding more.');
+        return;
+      }
+  
+      counter++;
+      const container = document.getElementById('dynamic-fields-container');
+  
+      const descField = document.createElement('div');
+      descField.className = 'form-group';
+      descField.innerHTML = `
+      <label for="message">Enter Description</label>
+      <textarea name="desc" id="desc-${counter}"  class="form-control" placeholder="Enter Description" id="" style="height: 100px"></textarea>
+
+      `;
+  
+      const priceField = document.createElement('div');
+      priceField.className = 'form-group';
+      priceField.innerHTML = `
+      <label for="exampleInputEmail1">Enter Price</label>
+      <input type="text" class="form-control" name="price" id="price-${counter}" placeholder="Enter price">
+      `;
+
+      container.appendChild(descField);
+      container.appendChild(priceField);
+    }
+  </script>
+{% endblock hub %}

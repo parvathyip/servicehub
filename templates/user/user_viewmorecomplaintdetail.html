@@ -1,0 +1,204 @@
+{% extends 'user/user_dashboard.html' %}
+{% for message in messages %}
+<script>alert('{{message}}')</script>
+{% endfor %}
+{% block user %}
+<div class="container-fluid page-header py-5 mb-1 wow fadeIn" data-wow-delay="0.1s" style="height: 400px!important;">
+    <div class="container text-center py-5">
+        <h1 class="display-4 text-white animated slideInDown mb-4" >ServiceHub</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="/user-dashboard" >Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page" >View Complaint Details</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<section >
+    <div class="container py-5">
+      
+        <div class="text-center mx-auto" style="max-width: 500px;">
+            <h1 class="display-6 mb-5">View Complaint Details</h1>
+        </div>
+      <div class="row">
+        
+        <div class="col-lg-10 mx-auto">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Complaint Registered on</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{complaint.booked_on}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Product</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{complaint.serviceproduct.productname}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Brand</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{complaint.serviceproduct.hubbrands.brand.brandname}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Model</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{complaint.model}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Complaint</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{complaint.complaint_text}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">User</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{complaint.user.first_name}} {{complaint.user.last_name}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">User Phone</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{complaint.user.user_phone}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">ServiceCharge</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{scharge}}</p>
+                </div>
+              </div>
+              <hr>
+              <h3>Requirments</h3>
+              <hr>
+              {% for require in requirecharges %}
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">{{require.require_desc}}</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{require.require_price}}</p>
+                </div>
+              </div>
+              <hr>
+              {% endfor %}
+              
+              <h3>Total</h3>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Subtotal</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{ftotal}}</p>
+                </div>
+              </div>
+              <hr>
+              {% if complaint.complaint_status != 'Completed' %}
+              <h3>Work Status</h3>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Status</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{complaint.complaint_status}}</p>
+                </div>
+              </div>
+              {% else %}
+            
+              <h3>Work Status</h3>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Status</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{complaint.complaint_status}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Completed On</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{complaint.completed_on}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Payment Status</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{complaint.payment_status}}</p>
+                </div>
+              </div>
+              {% if complaint.payment_status == 'Unpaid' %}
+              <hr>
+              <div class="row">
+                <div class="col-sm-12">
+                  <a href="/user-payment?cid={{complaint.id}}&stotal={{ftotal}}" class="btn btn-primary py-2 px-4" style="border-radius: 10px; float: right;">Pay now</a>
+                </div>
+              </div>
+              {% endif %}
+              {% if complaint.payment_status == 'Paid' %}
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Payment Type</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{complaint.payment_type}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Payment on</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{complaint.paid_on}}</p>
+                </div>
+              </div>
+              {% endif %}
+              {% endif %}
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock user %}

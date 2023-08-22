@@ -1,0 +1,81 @@
+{% extends 'admin/admin_dashboard.html' %}
+{% for message in messages %}
+<script>alert('{{message}}')</script>
+{% endfor %}
+{% block admin %}
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<div class="container-fluid page-header py-5 mb-1 wow fadeIn" data-wow-delay="0.1s" style="height: 400px!important;">
+    <div class="container text-center py-5">
+        <h1 class="display-4 text-white animated slideInDown mb-4" >Admin</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="/admin-dashboard" >Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page" >View Service Hub</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-6 wow fadeIn mx-auto" data-wow-delay="0.1s">
+                <h1 class="display-6 mb-5 " style="text-align: center;">View Service Hub</h1>
+                
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="col-sm-6" style="display: flex; flex-direction: column; justify-content: space-between;">
+                  <img src="../../static/media/{{hub.hub_image}}" style="border: none; width: 100%; height: auto; max-height: 350px; object-fit: cover; padding: 20px;" alt="">
+            </div>
+            <div class="col-sm-6" style="display: flex; flex-direction: column; justify-content: space-between;">
+              <div class="card" style="border: none; height: 400px !important;">
+                <div class="card-body" >
+                  <h5 class="card-title">{{hub.hub_name}}</h5>
+                  <!-- <p class="card-text">Brand: {{hub.brand.brandname}}</p> -->
+                  <p class="card-text">Phone: {{hub.hub_phone}}</p>
+                  <p class="card-text">Email: {{hub.hub_email}}</p>
+                  <p class="card-text">Address: {{hub.hub_address}}</p>
+                  <p class="card-text">District: {{hub.district}}</p>
+                  <p class="card-text">Pin: {{hub.hub_pin}}</p>
+                  <p class="card-text"><b><i>Our Brands with its Repair products</i></b></p>
+                  <ul>
+                    {% for hubbrand in hubbrands %}
+                    {% if hubbrand.hub.id == hub.id %}
+                    <li>
+                        {{hubbrand.brand.brandname}}
+                        <ol>
+                          {% for service in services %}
+                          {% if service.hubbrands.brand.brandname ==  hubbrand.brand.brandname %}
+                          <li>{{service.productname}}</li>
+                          {% endif %}
+                          {% endfor %}
+                        </ol>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                  </ul>
+                  <!-- <p class="card-text"><b><i>Our Repair Services Products</i></b></p>
+                  <ul>
+                    {% for service in services %}
+                    <li>
+                        {{service.productname}}
+                    </li>
+                    {% endfor %}
+                  </ul> -->
+                </div>
+              </div>
+              
+            </div>
+            
+          </div>
+          
+    </div>
+    
+</div>
+
+{% endblock admin %}

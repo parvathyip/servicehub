@@ -1,0 +1,113 @@
+{% extends 'user/user_dashboard.html' %}
+{% for message in messages %}
+<script>alert('{{message}}')</script>
+{% endfor %}
+{% block user %}
+<div class="container-fluid page-header py-5 mb-1 wow fadeIn" data-wow-delay="0.1s" style="height: 400px!important;">
+    <div class="container text-center py-5">
+        <h1 class="display-4 text-white animated slideInDown mb-4" >User</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="/user-dashboard" >Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page" >View Complaints</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+        <div class="container">
+        <div class="text-center mx-auto" style="max-width: 500px;">
+            <h1 class="display-6 mb-5">View Complaints</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-uppercase mb-0"></h5>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table no-wrap user-table mb-0">
+                          <thead>
+                            <tr>
+                              <th scope="col" class="border-0 text-uppercase font-medium">Registerd on</th>
+                              <th scope="col" class="border-0 text-uppercase font-medium">Product</th>
+                              <th scope="col" class="border-0 text-uppercase font-medium">Description</th>
+                              <th scope="col" class="border-0 text-uppercase font-medium">ServiceHub</th>
+                              <th scope="col" class="border-0 text-uppercase font-medium">Status</th>
+                              <th scope="col" class="border-0 text-uppercase font-medium">Chat</th>
+                              <th scope="col" class="border-0 text-uppercase font-medium" >View More</th>
+                              
+                              <th scope="col" class="border-0 text-uppercase font-medium" >Payment Status</th>
+                              <th scope="col" class="border-0 text-uppercase font-medium">Product Date</th>
+                              <!-- {% for complaint in complaints %}
+                              {% if complaint.complaint_status == 'Date Added' %} -->
+                              <th scope="col" class="border-0 text-uppercase font-medium"> {% ifchanged %}Action{% endifchanged %}</th>
+                              <!-- {% endif %}
+                              {% endfor %} -->
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for complaint in complaints %}
+                            <tr>
+                            <td>
+                                <span class="text-muted">{{complaint.booked_on}}</span><br>
+                            </td>
+                              <td>
+                                  <h5 class="font-medium mb-0">{{complaint.serviceproduct.productname}}</h5>
+                                  <span class="text-muted">Brand: <b><i>{{complaint.serviceproduct.hubbrands.brand.brandname}}</i></b></span><br>
+                                  <span class="text-muted">Model: <i>{{complaint.model}}</i></span>
+                              </td>
+                              <td>
+                                  <span class="text-muted">{{complaint.complaint_text}}</span><br>
+                              </td>
+                              <td>
+                                  <span class="text-muted"><a href="/user-viewsinglehub?hubid={{complaint.hub.id}}">{{complaint.hub.hub_name}}</a></span><br>
+                                  <span class="text-muted">{{complaint.hub.hub_phone}}</span>
+                              </td>
+                              <td>
+                                  <span class="text-muted">{{complaint.complaint_status}}</span><br>
+                              </td>
+                              <td>
+                                <span class="text-muted"><a href="/user-chat?cid={{complaint.id}}" class="btn btn-primary py-2 px-4" style="border-radius: 10px;">Chat</a></span><br>
+                            </td>
+                            <td>
+                                <span class="text-muted">
+                                    <a href="/user-viewmorecomplaintdetail?cid={{complaint.id}}" class="btn btn-primary py-2 px-4" style="border-radius: 10px;">View more</a>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="text-muted">{{complaint.payment_status}}</span><br>
+                            </td>
+                            <td>
+                                <span class="text-muted">{{complaint.submitdate}}</span><br>
+                            </td>
+                            <td>
+                                {% if complaint.complaint_status == 'Date Added' %}
+                                <!-- Debug Statement -->
+                                <!-- <span>DEBUG: Date Added Status Detected</span><br> -->
+                                
+                                <!-- Buttons -->
+                                <span class="text-muted">
+                                    <a href="/user-acceptsubmitdate?cid={{complaint.id}}" class="btn btn-primary py-2 px-4 mb-2" style="border-radius: 10px;">Accept</a>
+                                    <a href="/user-rejectsubmitdate?cid={{complaint.id}}" class="btn btn-primary py-2 px-4" style="border-radius: 10px;">Reject</a>
+                                </span>
+                            {% endif %}
+                            </td>
+                            </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        
+    </div>
+</div>
+{% endblock user %}

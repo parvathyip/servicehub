@@ -1,0 +1,3 @@
+admin view users inside projects
+Add Remarks Add Medicine Add Test Add Appointment
+hospital,doctor and admin can view feedback rating as star

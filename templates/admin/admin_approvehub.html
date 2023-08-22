@@ -1,0 +1,64 @@
+{% extends 'admin/admin_dashboard.html' %}
+{% for message in messages %}
+<script>alert('{{message}}')</script>
+{% endfor %}
+{% block admin %}
+<div class="container-fluid page-header py-5 mb-1 wow fadeIn" data-wow-delay="0.1s" style="height: 400px!important;">
+    <div class="container text-center py-5">
+        <h1 class="display-4 text-white animated slideInDown mb-4" >Admin</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="/admin-dashboard" >Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page" >Approve Service Hubs</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-6 wow fadeIn mx-auto" data-wow-delay="0.1s">
+                <h1 class="display-6 mb-5 " style="text-align: center;">Approve Service Hubs</h1>
+                
+            </div>
+            
+        </div>
+        {% for hub in hubs %}
+        <div class="row">
+            <div class="col-sm-6" style="display: flex; flex-direction: column; justify-content: space-between;">
+                  <img src="../../static/media/{{hub.hub_image}}" style="border: none; width: 100%; height: auto; max-height: 350px; object-fit: cover; padding: 20px;" alt="">
+            </div>
+            <div class="col-sm-6" style="display: flex; flex-direction: column; justify-content: space-between;">
+              <div class="card" style="border: none; height: 400px !important;">
+                <div class="card-body" >
+                  <h5 class="card-title">{{hub.hub_name}}</h5>
+                  <!-- <p class="card-text">Brand: {{hub.brand.brandname}}</p> -->
+                  <p class="card-text">Phone: {{hub.hub_phone}}</p>
+                  <p class="card-text">Email: {{hub.hub_email}}</p>
+                  <p class="card-text">Address: {{hub.hub_address}}</p>
+                  <p class="card-text">District: {{hub.district}}</p>
+                  <p class="card-text">Pin: {{hub.hub_pin}}</p>
+                  <p class="card-text"><b><i>Brands</i></b></p>
+                  <ul>
+                    {% for hubbrand in hubbrands %}
+                    {% if hubbrand.hub.id == hub.id %}
+                    <li>
+                        {{hubbrand.brand.brandname}}
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                  </ul>
+                  <a href="/admin-approveeachhub?hid={{hub.id}}" class="btn btn-primary py-2 px-4" style="border-radius: 10px;">Approve</a>
+                  <!-- <a href="/admin-rejecteachhub?hid={{hub.id}}" class="btn btn-primary py-2 px-4" style="border-radius: 10px;">Reject</a> -->
+                  <a href="../../static/media/{{hub.hub_licence}}" download="" class="btn btn-primary py-2 px-4" style="border-radius: 10px;">Download Licence</a>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+    </div>
+</div>
+{% endblock admin %}

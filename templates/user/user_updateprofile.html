@@ -1,0 +1,84 @@
+{% extends 'user/user_dashboard.html' %}
+{% for message in messages %}
+<script>alert('{{message}}')</script>
+{% endfor %}
+{% block user %}
+<div class="container-fluid page-header py-5 mb-1 wow fadeIn" data-wow-delay="0.1s" style="height: 400px!important;">
+    <div class="container text-center py-5">
+        <h1 class="display-4 text-white animated slideInDown mb-4" >User</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="/user-dashboard" >Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page" >View Profile</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+        <div class="container">
+        <div class="text-center mx-auto" style="max-width: 500px;">
+            <h1 class="display-6 mb-5">Update Profile</h1>
+        </div>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row g-3">
+                <div class="col-md-12">
+                    <div class="form-floating">
+                        <input type="text" value="{{udata.first_name}}" name="firstname" class="form-control"  placeholder="Firstname">
+                        <label for="name">Firstname</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-floating">
+                        <input type="text" value="{{udata.last_name}}" name="lastname" class="form-control"  placeholder="Lastname">
+                        <label for="name">Lastname</label>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-floating">
+                        <input type="text" value="{{udata.user_phone}}" name="userphone" pattern="[6789][0-9]{9}" maxlength="10" class="form-control" id="subject" placeholder="Phone">
+                        <label for="subject">Phone</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-floating">
+                        <input type="email" value="{{udata.user_email}}" name="useremail" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"  placeholder="ServiceHub email">
+                        <label for="name">User email</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-floating">
+                        <select class="form-select" name="district" aria-label="Default select example">
+                            <option selected disabled>{{udata.district}}</option>
+                            <option value="Tvm">Tvm</option>
+                            <option value="Kollam">Kollam</option>
+                            <option value="Pathanamthitta">Pathanamthitta</option>
+                            <option value="Alappuzha">Alappuzha</option>
+                            <option value="Kottayam">Kottayam</option>
+                            <option value="Idukki">Idukki</option>
+                            <option value="Ernakulam">Ernakulam</option>
+                            <option value="Thrissure">Thrissure</option>
+                            <option value="Palakkad">Palakkad</option>
+                            <option value="Malappuram">Malappuram</option>
+                            <option value="Kozhikkode">Kozhikkode</option>
+                            <option value="Wayanad">Wayanad</option>
+                            <option value="Kannur">Kannur</option>
+                            <option value="Kasargod">Kasargod</option>
+                        </select>
+                        <label for="name">User District</label>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button class="btn btn-primary py-3 px-5" type="submit" style="border-radius: 10px;">Update</button>
+                </div>
+            </div>
+        </form>
+        </div>
+        
+    </div>
+</div>
+{% endblock user %}

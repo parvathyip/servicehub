@@ -1,0 +1,76 @@
+{% extends 'user/user_dashboard.html' %}
+{% for message in messages %}
+<script>alert('{{message}}')</script>
+{% endfor %}
+{% block user %}
+<div class="container-fluid page-header py-5 mb-1 wow fadeIn" data-wow-delay="0.1s" style="height: 400px!important;">
+    <div class="container text-center py-5">
+        <h1 class="display-4 text-white animated slideInDown mb-4" >ServiceHub</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="/user-dashboard" >Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page" >User Make Payment</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<section >
+    <div class="container py-5">
+      
+        <div class="text-center mx-auto" style="max-width: 500px;">
+            <h1 class="display-6 mb-5">User Make Payment</h1>
+        </div>
+      <div class="row">
+        
+        <div class="col-lg-9 mx-auto">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Subtotal</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{stotal}}</p>
+                </div>
+              </div>
+              <hr>
+              <form action="" method="post">
+                {% csrf_token %}
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Choose Payment Type</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">
+                  <!-- <div class="form-check">
+                    <input class="form-check-input" value="Upi" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                      Upi
+                    </label>
+                  </div> -->
+                  <div class="form-check">
+                    <input class="form-check-input" value="Debit/Credit Card" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                    <label class="form-check-label" for="flexRadioDefault2">
+                      Debit/Credit Card
+                    </label>
+                  </div></p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-12">
+                  <!-- <a href="/user-payment?cid={{complaint.id}}" class="btn btn-primary py-2 px-4" style="border-radius: 10px; float: right;">Pay</a> -->
+                  <button type="submit" class="btn btn-primary py-2 px-4" style="border-radius: 10px; float: right;">Pay</button>
+                </div>
+              </div>
+            </form>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock user %}
